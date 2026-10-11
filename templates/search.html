@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search Users</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #fafafa;
+      color: #262626;
+      font-family: "Inter", sans-serif;
+    }
+
+    .page {
+      width: min(100% - 32px, 680px);
+      margin: 0 auto;
+      padding: 48px 0;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font: 600 32px "Fredoka", sans-serif;
+    }
+
+    .subtitle {
+      margin: 0 0 28px;
+      color: #737373;
+      font-size: 14px;
+    }
+
+    .search-box {
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      height: 48px;
+      padding: 0 16px 0 44px;
+      border: 1px solid #dbdbdb;
+      border-radius: 12px;
+      outline: none;
+      background: #efefef;
+      color: #262626;
+      font: 14px "Inter", sans-serif;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: #a8a8a8;
+      background: #fff;
+    }
+
+    .search-icon {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      width: 17px;
+      height: 17px;
+      color: #737373;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    /* Add your user items inside this div. */
+    .sugglist {
+      display: none;
+      position: absolute;
+      z-index: 2;
+      top: calc(100% + 8px);
+      left: 0;
+      right: 0;
+      max-height: 360px;
+      overflow-y: auto;
+      padding: 8px;
+      border: 1px solid #efefef;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgb(0 0 0 / 10%);
+    }
+
+    /* Optional: add the "is-open" class to show the suggestions. */
+    .sugglist.is-open {
+      display: block;
+    }
+
+    /* Example styling for user entries you add later. */
+    .user-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .user-item:hover {
+      background: #fafafa;
+    }
+
+    .user-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #efefef;
+    }
+
+    .user-name {
+      margin: 0 0 3px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .user-handle {
+      margin: 0;
+      color: #737373;
+      font-size: 13px;
+    }
+
+    @media (max-width: 480px) {
+      .page {
+        padding-top: 32px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <h1>Search</h1>
+    <p class="subtitle">Find people and accounts.</p>
+
+    <div class="search-box">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="2" />
+        <path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+
+      <input
+        class="search-input"
+        type="search"
+        placeholder="Search"
+        aria-label="Search users"
+        autocomplete="off"
+      />
+
+      <div class="sugglist">
+        <!-- Add your user entries here -->
+      </div>
+    </div>
+  </main>
+  <p id="username" style="display: none;">{{username}}</p>
+  <script>
+    let username = document.querySelector("#username")
+    let search = document.getElementsByClassName("search-input")
+    async function fetch_users(name) {
+        let response = await fetch(`/fetch_users/${search.value}`)
+        
+    }
+  </script>
+</body>
+</html>
