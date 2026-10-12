@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 40px 16px;
+      background: #f5f5f5;
+      color: #222;
+      font-family: Arial, sans-serif;
+    }
+
+    .profile-page {
+      width: min(100%, 520px);
+      margin: 0 auto;
+    }
+
+    .profile-card,
+    .settings-card {
+      padding: 28px;
+      border: 1px solid #e8e8e8;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 4px 16px rgb(0 0 0 / 5%);
+    }
+
+    .profile-card {
+      text-align: center;
+    }
+
+    .profile-picture {
+      display: block;
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #e5e5e5;
+    }
+
+    .profile-name {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .profile-username {
+      margin: 8px 0 0;
+      color: #777;
+      font-size: 16px;
+    }
+
+    .settings-card {
+      margin-top: 20px;
+    }
+
+    .settings-card h2 {
+      margin: 0 0 18px;
+      font-size: 20px;
+    }
+
+    .setting {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 0;
+      border-top: 1px solid #eee;
+    }
+
+    .setting-info strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .setting-info span {
+      color: #777;
+      font-size: 13px;
+    }
+
+    .setting select,
+    .setting input[type="text"] {
+      min-height: 38px;
+      padding: 0 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background: #fff;
+      color: #222;
+      font: inherit;
+    }
+
+    .setting input[type="text"] {
+      width: 180px;
+    }
+
+    .setting input[type="file"] {
+      width: 220px;
+      font: inherit;
+      font-size: 13px;
+    }
+
+    @media (max-width: 420px) {
+      .profile-card,
+      .settings-card {
+        padding: 22px;
+      }
+
+      .setting {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .setting select,
+      .setting input[type="text"],
+      .setting input[type="file"] {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="profile-page">
+    <section class="profile-card">
+      <img
+        id="profile-picture"
+        class="profile-picture"
+        src="https://i.pravatar.cc/300?img=12"
+        alt="Profile picture"
+      />
+      <h1 id="display-name" class="profile-name">{{username}}</h1>
+      <p class="profile-username">{{name}}</p>
+    </section>
+
+    <section class="settings-card">
+      <h2>Settings</h2>
+
+      <label class="setting" for="account-type">
+        <span class="setting-info">
+          <strong>Account type</strong>
+          <span>Choose your account type</span>
+        </span>
+
+        <select id="account-type" name="account_type">
+          <option value="{{first_option}}">{{first_option}}</option>
+          <option value="{{second_option}}">{{second_option}}</option>
+          
+        </select>
+      </label>
+
+      <label class="setting" for="profile-name">
+        <span class="setting-info">
+          <strong>Change name</strong>
+          <span>Enter the name shown on your profile</span>
+        </span>
+
+        <input
+          id="profile-name"
+          name="name"
+          type="text"
+          value="Alex Morgan"
+          placeholder="Your name"
+        />
+      </label>
+
+      <div class="setting">
+        <div class="setting-info">
+          <strong>Change profile picture</strong>
+          <span>Choose an image from your device</span>
+        </div>
+
+        <input
+          id="profile-picture-input"
+          type="file"
+          accept="image/*"
+          aria-label="Choose a profile picture"
+        />
+      </div>
+    </section>
+  </main>
+  <p id="username" style="display: none;">{{ username }}</p>
+  <script src="../static/profile.js"></script>
+</body>
+</html>

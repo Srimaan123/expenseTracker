@@ -74,6 +74,7 @@
 
     /* Add your user items inside this div. */
     .sugglist {
+      
       display: none;
       position: absolute;
       z-index: 2;
@@ -99,6 +100,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
+      width: 100%;
       padding: 10px;
       border-radius: 8px;
       cursor: pointer;
@@ -166,11 +168,31 @@
   <p id="username" style="display: none;">{{username}}</p>
   <script>
     let username = document.querySelector("#username")
-    let search = document.getElementsByClassName("search-input")
+    let search = document.querySelector(".search-input")
     async function fetch_users(name) {
-        let response = await fetch(`/fetch_users/${search.value}`)
-        
+        let response = await fetch(`/fetch_users/${search.value}-${name}`,{
+          method: 'POST',
+          headers: {
+            'Content-Type' : 'application/json'
+          }
+        })
+        response = await response.json()
+        document.querySelector(".sugglist").style.display = 'flex'
+        document.querySelector(".sugglist").style.flexDirection = 'column'
+        response.users.forEach((element,index) => {
+          let userItem = document.createElement("div")
+          userItem.innerHTML = `<div class="user-item">  <img    class="user-avatar"    src="https://i.pravatar.cc/84?img=12"    alt=""  />  <div class="user-info">    <p class="user-name">${element}</p>    <p class="user-handle">${response.names[index]}</p>  </div> </div>`
+          document.querySelector(".sugglist").append(userItem)
+        });
     }
+    search.addEventListener("input",()=>{
+      document.querySelector(".sugglist").innerHTML = ''
+      if (search.value == ""){
+        document.querySelector(".sugglist").style.display = 'none'
+        return
+      }
+      fetch_users(username.textContent)
+    })
   </script>
 </body>
 </html>

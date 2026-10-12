@@ -30,9 +30,9 @@ def createaccount():
 
         with sqlite3.connect("data.db") as conn:
             cursor = conn.cursor()
-            cursor.execute("insert into users(username,password,mobile_number) values(?,?,?)",(username,password,mobile))
+            cursor.execute("insert into users(username,password,mobile_number,name,is_private) values(?,?,?,?,?)",(username,password,mobile,username,'False'))
             conn.commit()
         
-        redirect("/")
+        return redirect("/")
     else:
         return render_template("create_account.html")

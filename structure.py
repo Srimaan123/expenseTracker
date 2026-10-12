@@ -7,8 +7,19 @@ def init_db():
         id integer primary key autoincrement,
         username text,
         password text,
+        name text,
+        is_private text,
         mobile_number text
     )
     """)
+        cursor.execute('''
+        create table if not exists requests(
+        id integer primary key autoincrement,
+        requested_by text,
+        requested_to text,
+        status text,
+        is_read text                                      
+                       )               
+                       ''')
         conn.commit()
 
