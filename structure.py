@@ -1,6 +1,6 @@
-import sqlite3
+from start import get_db
 def init_db():
-    with sqlite3.connect("data.db") as conn:
+    with get_db() as conn:
         cursor = conn.cursor()
         cursor.execute("""
     create table if not exists users(

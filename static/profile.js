@@ -22,3 +22,32 @@ accountType.addEventListener("change",(e)=>{
     let choosedOption = e.target.value
     changeAccountType(choosedOption)
 })
+
+function debounce(func,time){
+    clearTimeout(timer)
+    timer = setTimeout(func,time)
+};
+async function changeProfileName(changed_name){
+    let response = await fetch(`/profile/${username}`,{
+        method: "POST",
+        headers:{
+            "Content-Type": "Application/json"
+        },
+        body: JSON.stringify({
+            'changed_name':  changed_name,
+            operation: 'name_change'
+        })
+    })
+    response = await response.json()
+
+    nameInput.value = response.changed_name
+    document.querySelector(".profile-username").textContent = response.changed_name
+}
+
+let timer;
+
+nameInput.addEventListener("input",(e)=>{
+    let text = e.target.value;
+
+    debounce(changeProfileName(text),2000)
+})

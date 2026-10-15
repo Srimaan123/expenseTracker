@@ -1,6 +1,6 @@
 from flask import Blueprint,render_template,request,redirect
 
-import sqlite3
+from start import get_db
 
 auth_bp = Blueprint(__name__,'auth')
 
@@ -9,7 +9,7 @@ def login_page():
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
-        with sqlite3.connect("data.db") as conn:
+        with get_db() as conn:
             cursor = conn.cursor()
             user = cursor.execute("select username,password from users where username=? and password=?",(username,password)).fetchone()
             
@@ -28,7 +28,7 @@ def createaccount():
         password = request.form.get("password")
         mobile = request.form.get("mobile")
 
-        with sqlite3.connect("data.db") as conn:
+        with get_db() as conn:
             cursor = conn.cursor()
             cursor.execute("insert into users(username,password,mobile_number,name,is_private) values(?,?,?,?,?)",(username,password,mobile,username,'False'))
             conn.commit()
