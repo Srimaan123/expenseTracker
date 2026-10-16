@@ -182,9 +182,17 @@
         response.users.forEach((element,index) => {
           let userItem = document.createElement("div")
           userItem.innerHTML = `<div class="user-item">  <img    class="user-avatar"    src="https://i.pravatar.cc/84?img=12"    alt=""  />  <div class="user-info">    <p class="user-name">${element}</p>    <p class="user-handle">${response.names[index]}</p>  </div> </div>`
+          userItem.onclick = function() {
+            let name = userItem.querySelector(".user-item").querySelector(".user-name").textContent
+            window.location.href = `/profile/${name}`
+          }
           document.querySelector(".sugglist").append(userItem)
         });
     }
+    suggList = document.querySelector(".sugglist")
+    
+    
+
     search.addEventListener("input",()=>{
       document.querySelector(".sugglist").innerHTML = ''
       if (search.value == ""){
@@ -192,6 +200,7 @@
         return
       }
       fetch_users(username.textContent)
+      
     })
   </script>
 </body>

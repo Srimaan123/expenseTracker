@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Profile</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 32px 16px;
+      background: linear-gradient(135deg, #f3f6ff, #fdf2f8);
+      color: #202334;
+      font-family: Arial, sans-serif;
+      font-size: 17px;
+    }
+
+    .profile {
+      width: min(100%, 960px);
+      margin: 0 auto;
+      padding: 32px;
+      background: #fff;
+      border: 1px solid #eef0f5;
+      border-radius: 24px;
+      box-shadow: 0 16px 45px rgba(35, 42, 70, 0.1);
+    }
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid #eceef3;
+    }
+
+    .profile-pic {
+      width: 150px;
+      height: 150px;
+      flex: 0 0 150px;
+      object-fit: cover;
+      border: 5px solid #fff;
+      border-radius: 50%;
+      box-shadow: 0 5px 20px rgba(40, 48, 80, 0.18);
+    }
+
+    .profile-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .username-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .username {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 40px);
+      font-weight: 800;
+      letter-spacing: -1.2px;
+      color: #171a2b;
+    }
+
+    .follow-button {
+      padding: 11px 24px;
+      border: 0;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #6558f5, #8a4de8);
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .follow-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 16px rgba(101, 88, 245, 0.3);
+    }
+
+    .follow-button:focus-visible {
+      outline: 3px solid #25204f;
+      outline-offset: 3px;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-bottom: 18px;
+      font-size: 18px;
+    }
+
+    .stat strong {
+      color: #171a2b;
+      font-size: 20px;
+    }
+
+    .bio {
+      margin: 0;
+      color: #555b6e;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .posts-heading {
+      margin: 30px 0 20px;
+      color: #24283a;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .post-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .post-grid img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 5px 14px rgba(35, 42, 70, 0.12);
+      transition: transform 220ms ease, box-shadow 220ms ease;
+    }
+
+    .post-grid img:hover {
+      transform: translateY(-7px) scale(1.02);
+      box-shadow: 0 14px 26px rgba(35, 42, 70, 0.2);
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 16px 10px;
+      }
+
+      .profile {
+        padding: 22px 16px;
+        border-radius: 20px;
+      }
+
+      .profile-header {
+        align-items: flex-start;
+        gap: 18px;
+      }
+
+      .profile-pic {
+        width: 95px;
+        height: 95px;
+        flex-basis: 95px;
+      }
+
+      .username-row {
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .username {
+        font-size: 28px;
+      }
+
+      .follow-button {
+        padding: 9px 16px;
+        font-size: 15px;
+      }
+
+      .stats {
+        gap: 12px 20px;
+        font-size: 16px;
+      }
+
+      .stat strong {
+        font-size: 18px;
+      }
+
+      .bio {
+        font-size: 16px;
+      }
+
+      .post-grid {
+        gap: 10px;
+      }
+
+      .post-grid img {
+        border-radius: 14px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="profile">
+    <section class="profile-header">
+      <img
+        class="profile-pic"
+        src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300"
+        alt="{{username}}'s profile picture"
+      />
+
+      <div class="profile-info">
+        <div class="username-row">
+          <h1 class="username">{{ username }}</h1>
+          <button class="follow-button" type="button">Follow</button>
+        </div>
+
+        <div class="stats">
+          <span class="stat"><strong>24</strong> posts</span>
+          <span class="stat"><strong>1,284</strong> followers</span>
+          <span class="stat"><strong>356</strong> following</span>
+        </div>
+
+        <p class="bio">
+          {{name}}<br />
+          
+        </p>
+      </div>
+    </section>
+
+    <h2 class="posts-heading">Posts</h2>
+
+    <section class="post-grid" aria-label="User posts">
+      <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600" alt="Mountain landscape" />
+      <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=600" alt="Lake and mountains" />
+      <img src="https://images.unsplash.com/photo-1500534623283-312aade485b7?w=600" alt="Coastal landscape" />
+      <img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600" alt="Sunrise over hills" />
+      <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600" alt="Forest path" />
+      <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600" alt="Snowy mountain peaks" />
+    </section>
+  </main>
+  <script src="../static/profile_user.js"></script>
+</body>
+</html>

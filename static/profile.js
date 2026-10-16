@@ -3,7 +3,7 @@ let accountType = document.querySelector("#account-type")
 let nameInput = document.querySelector("#profile-name")
 
 async function changeAccountType(option) {
-    let response = await fetch(`/profile/${username}`,{
+    let response = await fetch(`/user_profile/${username}`,{
         method: "POST",
         headers:{
             'content-type': 'application/json'
@@ -28,7 +28,7 @@ function debounce(func,time){
     timer = setTimeout(func,time)
 };
 async function changeProfileName(changed_name){
-    let response = await fetch(`/profile/${username}`,{
+    let response = await fetch(`/user_profile/${username}`,{
         method: "POST",
         headers:{
             "Content-Type": "Application/json"

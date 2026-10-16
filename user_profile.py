@@ -2,7 +2,7 @@ from flask import Blueprint,render_template,redirect,request,jsonify
 from start import get_db
 
 profile_bp = Blueprint(__name__,"profile")
-@profile_bp.route("/profile/<username>",methods=['GET','POST'])
+@profile_bp.route("/user_profile/<username>",methods=['GET','POST'])
 def show_user_profile(username):
     if request.method == "POST":
         data = request.get_json()
@@ -41,3 +41,14 @@ def show_user_profile(username):
                 first_option = 'Public'
                 second_option= 'Private'
         return render_template("profile.html",username=username,name=name,first_option=first_option,second_option=second_option)
+    
+
+@profile_bp.route("/profile/<username>-<username2>")
+def profile(username):
+    if request.method == "POST":
+        return
+    else:
+        with get_db() as conn:
+            cursor = conn.cursor()
+            name = cursor.execute("select name from users where username=?",(username,)).fetchone()[0]
+        return render_template("profile_user.html",username=username,name=name)
